@@ -1,0 +1,68 @@
+`<!DOCTYPE html>
+<html>
+  <head>
+    <title>To Do List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <h1>To-Do List</h1>
+  </head>
+  <body1>
+    <form method="post" action="/">
+      <label for="name">Name: </label>
+      <input type="text" id="name" name="name"><br>
+      <input type="submit" value="send">
+     
+    </form>
+     {% if name %}
+    <p>{{ name }}</p>
+    {% endif %}
+   
+    
+    
+	<ul>
+		{% for task in tasks %}
+		<li>{{ task[0] }}</li>
+		{% endfor %}
+	</ul>
+	
+	<form id="todo-form">
+		<label for="todo-input">New task:</label>
+		<input type="text" id="todo-input" placeholder="Enter a new task...">
+		<button type="submit">Add</button>
+	</form>
+
+	<ul id="todo-list">
+	</ul>
+        
+    </form>   
+
+	<script>
+		const form = document.querySelector("#todo-form");
+		const input = document.querySelector("#todo-input");
+		const list = document.querySelector("#todo-list");
+
+		form.addEventListener("submit", (event) => {
+			event.preventDefault(); 
+
+			const text = input.value.trim(); 
+
+			if (text !== "") { 
+				const item = document.createElement("li"); 
+				item.textContent = text; 
+				list.appendChild(item); 
+				input.value = ""; 
+        const deleteButton = item.querySelector("button");
+        deleteButton.addEventListener("click", () => {
+            item.remove();
+        });
+			}
+		});
+	</script>
+    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="isChecked">
+<label for="myCheckbox">Check me!</label>
+   
+}
+
+
+
+  </body>
+</html>
