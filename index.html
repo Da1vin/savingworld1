@@ -1,68 +1,40 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>To Do List</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <h1>To-Do List</h1>
   </head>
-  <body1>
+  <body>
+    <h1>To-Do List</h1>
+
     <form method="post" action="/">
-      <label for="name">Name: </label>
-      <input type="text" id="name" name="name"><br>
-      <input type="submit" value="send">
-     
+      <input type="hidden" name="name" value="Anonymous">
+      
+      <label for="task">Enter a task: </label>
+      <input type="text" id="task" name="task" placeholder="Add a task...">
+      
+      <label for='due_date'>Due date: </label>
+      <input type='date' id='due_date' name='due_date'>
+
+      <button type="submit" name="action" value="add">Add</button>
+      <button type="submit" name="action" value="finish">Finish</button>
     </form>
-     {% if name %}
-    <p>{{ name }}</p>
-    {% endif %}
-   
-    
-    
-	<ul>
-		{% for task in tasks %}
-		<li>{{ task[0] }}</li>
-		{% endfor %}
-	</ul>
-	
-	<form id="todo-form">
-		<label for="todo-input">New task:</label>
-		<input type="text" id="todo-input" placeholder="Enter a new task...">
-		<button type="submit">Add</button>
-	</form>
 
-	<ul id="todo-list">
-	</ul>
-        
-    </form>   
+    <br>
+    <br>
+    <br>
 
-	<script>
-		const form = document.querySelector("#todo-form");
-		const input = document.querySelector("#todo-input");
-		const list = document.querySelector("#todo-list");
+    <ul id="todo-list">
+      {% for todo in todos %}
+      <li>{{ todo.task }}{% if todo.due_date %} (due {{ todo.due_date.strftime('%Y-%m-%d') }}){% endif %}</li>
+      {% endfor %}
+    </ul>
 
-		form.addEventListener("submit", (event) => {
-			event.preventDefault(); 
+    <br>
+    <br>
+    <br>
 
-			const text = input.value.trim(); 
-
-			if (text !== "") { 
-				const item = document.createElement("li"); 
-				item.textContent = text; 
-				list.appendChild(item); 
-				input.value = ""; 
-        const deleteButton = item.querySelector("button");
-        deleteButton.addEventListener("click", () => {
-            item.remove();
-        });
-			}
-		});
-	</script>
-    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="isChecked">
-<label for="myCheckbox">Check me!</label>
-   
-}
-
-
+    <a href="https://portal.asrjc.edu.sg/">Click here to visit ASR portal</a>
 
   </body>
 </html>
